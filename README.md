@@ -8,6 +8,7 @@ The goal is to showcase an **end-to-end data engineering workflow** with scalabl
 ---
 
 ## ⚙️ Architecture
+
 Raw CSV (NYC Taxi Data)
 ↓
 Spark (PySpark job)
@@ -27,16 +28,22 @@ Google BigQuery (analytics-ready)
 ---
 
 ## 📂 Project Structure
+```
 .
 ├── data/
-│   ├── raw/                  # Sample taxi trip data (CSV)
-│   └── curated/              # Local Spark outputs (before BQ load)
+│   ├── raw/                  # Sample taxi trip data (tiny CSV or empty with .gitkeep)
+│   └── curated/              # Spark outputs (ignored in Git, .gitkeep to keep folder)
+│
 ├── jobs/
 │   └── nyc_batch.py          # PySpark batch job
-├── dags/                     # (Optional) Airflow DAGs
-├── requirements.txt
-└── README.md
+│
+├── dags/
+│   └── nyc_taxi_dag.py       # Airflow DAG (orchestration)
+│
+├── .gitignore                # Git ignore rules
+└── README.md                 # Project documentation
 ---
+```
 
 ## 🚀 Pipeline Steps
 1. **Data Ingestion**  
@@ -58,22 +65,26 @@ Google BigQuery (analytics-ready)
 
 ## ▶️ Running Locally
 **Run Spark job directly:**
-    bash spark-submit --master "local[*]" jobs/nyc_batch.py data/raw/yellow_tripdata_sample.csv data curated/hourly_fares
+```
+	bash spark-submit --master "local[*]" jobs/nyc_batch.py data/raw/yellow_tripdata_sample.csv data curated/hourly_fares
+```
 ---
 
 ## ⏱ Orchestration with Airflow (Optional)
 	•	Airflow can schedule and monitor the Spark job.
 	•	A DAG (nyc_taxi_dag.py) triggers the PySpark job on a daily schedule.
 	•	Provides retries, logging, and UI-based monitoring.
-👉 See /dags/nyc_taxi_dag.py for details.
+	👉 See /dags/nyc_taxi_dag.py for details.
 ---
 
 ## 📊 Sample Output (BigQuery)
+```
 Row	pickup_hour	trips	avg_fare
 1	0	13	10.76923076923077
 2	1	10	21.401
 3	2	5	20.1
 4	4	3	35.54
+```
 ---
 
 ## 🔧 Challenges & Learnings
