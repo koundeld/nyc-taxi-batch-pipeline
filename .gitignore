@@ -1,0 +1,43 @@
+# -------------------
+# Python
+# -------------------
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.log
+
+# Virtual Environments
+.venv/
+env/
+venv/
+
+# -------------------
+# Data Files
+# -------------------
+data/raw/*
+data/curated/*
+!data/raw/.gitkeep
+!data/curated/.gitkeep
+
+# -------------------
+# Airflow
+# -------------------
+airflow_home/
+logs/
+airflow.db
+*.pid
+
+# -------------------
+# IDE / OS files
+# -------------------
+.vscode/
+.idea/
+.DS_Store
+
+# -------------------
+# Secrets (Important!)
+# -------------------
+*.json
+*.key
+*.pem
+*.p12
